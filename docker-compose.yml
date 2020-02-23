@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+    django_that_command_db:
+        image: postgres:latest
+        container_name: django_that_command_db_container
+        restart: always
+        ports:
+            - 5433:5432
+        environment:
+            POSTGRES_DB: 'that_command_db'
+            POSTGRES_USER: 'postgres'
+            POSTGRES_PASSWORD: 'postgres'
+
+        volumes:
+            - ./init_db:/docker-entry-point-initdb.d
+
+    django_that_command_app:
+        build: .
+        container_name: django_that_command_app_container
+        restart: always
+        ports:
+            - 18080:8000
+        tty: true
+        environment:
+            LANG: 'ja_JP.UTF-8'
+        volumes:
+            - ./src:/usr/local/src
+        depends_on:
+            - django_that_command_db
+
+
