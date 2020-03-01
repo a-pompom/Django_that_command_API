@@ -1,6 +1,6 @@
 from django.urls import path
-from .views.topView import TopView
+from .views.categoryView import CategoryView
 
 urlpatterns = [
-    path('category/', TopView.as_view(), name='top')
+    path('category/', CategoryView.as_view(), name='category')
 ]
