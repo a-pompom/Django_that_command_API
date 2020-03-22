@@ -20,7 +20,7 @@ class TestGetCategoryRequests:
     def props(self):
         client = APIClient()
         return {
-            'TARGET_URL': '/api/v1/category/',
+            'TARGET_URL': '/api/v1/categories/',
             'client': client
         }
 
