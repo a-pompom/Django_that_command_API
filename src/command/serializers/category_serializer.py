@@ -7,6 +7,5 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
 
-    
 class CategoryListSerializer(serializers.ListSerializer):
     child = CategorySerializer()

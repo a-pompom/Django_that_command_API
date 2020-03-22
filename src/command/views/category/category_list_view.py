@@ -3,12 +3,12 @@ from rest_framework.response import Response
 
 from django.db.models import F
 
-from ..models.category import Category
-from ..serializers.category_serializer import CategorySerializer, CategoryListSerializer
+from ...models.category import Category
+from ...serializers.category_serializer import CategorySerializer, CategoryListSerializer
 
-class CategoryView(views.APIView):
+class CategoryListView(views.APIView):
     """
-    カテゴリを操作するためのAPIViewクラス
+    カテゴリを一覧表示するためのAPIViewクラス
         
     """
 

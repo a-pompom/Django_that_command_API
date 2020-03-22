@@ -1,6 +1,10 @@
 from django.urls import path
-from .views.categoryView import CategoryView
+from .views.category.category_list_view import CategoryListView
+from .views.category.category_create_view import CategoryCreateView
+from .views.category.category_update_view import CategoryUpdateView
 
 urlpatterns = [
-    path('category/', CategoryView.as_view(), name='category')
+    path('categories/', CategoryListView.as_view(), name='category_list'),
+    path('category/', CategoryCreateView.as_view(), name='category_create'),
+    path('category/<str:category_id>', CategoryUpdateView.as_view(), name='category_update'),
 ]
