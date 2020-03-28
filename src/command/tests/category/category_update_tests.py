@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework import status
 from django.urls import reverse
 from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404
 
 from rest_framework.test import APIClient
 
@@ -40,6 +41,9 @@ class TestGetCategoryRequests:
 
         response = props['client'].post(end_point, params, format='json')
 
+        category = get_object_or_404(Category, pk=category_id)
+        print(category.category_name)
+
         assert response.status_code == status.HTTP_200_OK
         assert response.data['category_name'] == mod_category_name
 
@@ -55,10 +59,7 @@ class TestGetCategoryRequests:
         end_point = f"{props['TARGET_URL']}{category_id}"
 
         response = props['client'].post(end_point, params, format='json')
-
         print(response.data)
-
-        assert True
 
     def test_更新処理で不正なカテゴリIDを指定するとバリデーションエラーとなる(self, props, single_category):
 
