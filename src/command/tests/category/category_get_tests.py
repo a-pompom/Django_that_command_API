@@ -8,10 +8,10 @@ import json
 
 from ...models.category import Category
 
-from .top_fixture import *
+from .category_fixture import *
 
 @pytest.mark.django_db(transaction=False) # transaction=Falseでテストコード実行で利用したDBトランザクションをコミットしないよう設定
-class TestGetTopRequests:
+class TestGetCategoryRequests:
 
     # テストクラスで利用するプロパティ
     #     client: APIクライアント
@@ -20,7 +20,7 @@ class TestGetTopRequests:
     def props(self):
         client = APIClient()
         return {
-            'TARGET_URL': '/api/v1/category/',
+            'TARGET_URL': '/api/v1/categories/',
             'client': client
         }
 
