@@ -12,7 +12,7 @@ import json
 
 from ...models.category import Category
 
-from .category_get_fixture import *
+from .category_fixture import *
 
 @pytest.mark.django_db(transaction=False) # transaction=Falseでテストコード実行で利用したDBトランザクションをコミットしないよう設定
 class TestGetCategoryRequests:
@@ -59,7 +59,7 @@ class TestGetCategoryRequests:
         end_point = f"{props['TARGET_URL']}{category_id}"
 
         response = props['client'].post(end_point, params, format='json')
-        print(response.data)
+        assert response.data['category_name'][0] == 'カテゴリ名を入力してください。'
 
     def test_更新処理で不正なカテゴリIDを指定するとバリデーションエラーとなる(self, props, single_category):
 
@@ -73,4 +73,3 @@ class TestGetCategoryRequests:
 
         with pytest.raises(ValidationError):
             response = props['client'].post(end_point, params, format='json')
-            print(response.data)

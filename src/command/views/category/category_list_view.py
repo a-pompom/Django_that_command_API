@@ -32,25 +32,3 @@ class CategoryListView(views.APIView):
         serializer = CategorySerializer(instance=category, many=True)
 
         return Response(serializer.data, status.HTTP_200_OK)
-
-    def post(self, request, *args, **kwargs):
-        """
-        postリクエスト 入力値をもとにカテゴリを新規登録
-
-        Parameters
-        ----------
-        self :  CategoryView
-        request : HttpRequest
-
-        Returns
-        -------
-        response : JsonResponse
-            登録されたカテゴリ
-        """
-
-        serializer = CategorySerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        serializer.save()
-
-        return Response(serializer.data, status.HTTP_201_CREATED)

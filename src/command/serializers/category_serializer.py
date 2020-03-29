@@ -14,8 +14,10 @@ class CategorySerializer(serializers.Serializer):
 
     """
 
+    # カテゴリID
     category_id = serializers.CharField(required = False)
 
+    # カテゴリ名
     category_name = serializers.CharField(
         required = True,
         error_messages = {
@@ -40,6 +42,8 @@ class CategorySerializer(serializers.Serializer):
 
         # validated_dataのディクショナリを名前付き引数に展開
         new_category = Category(**validated_data)
+        new_category.save()
+
         return new_category
 
     def update(self, instance, validated_data):
@@ -64,7 +68,17 @@ class CategorySerializer(serializers.Serializer):
 
         return instance
 
+    def delete(self, instance):
+        """
+        カテゴリ削除
 
+        Parameters
+        ----------
+        instance : Category
+            DBより取得した削除対象のカテゴリModel
+        """
+        instance.delete()
+    
 
 class CategoryListSerializer(serializers.ListSerializer):
     child = CategorySerializer()

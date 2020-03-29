@@ -8,7 +8,7 @@ import json
 
 from ...models.category import Category
 
-from .category_get_fixture import *
+from .category_fixture import *
 
 @pytest.mark.django_db(transaction=False) # transaction=Falseでテストコード実行で利用したDBトランザクションをコミットしないよう設定
 class TestGetCategoryRequests:

@@ -2,13 +2,14 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 
 from rest_framework.test import APIClient
+from django.shortcuts import get_object_or_404
 
 import pytest
 import json
 
 from ...models.category import Category
 
-from .category_get_fixture import *
+from .category_fixture import *
 
 @pytest.mark.django_db(transaction=False) # transaction=Falseでテストコード実行で利用したDBトランザクションをコミットしないよう設定
 class TestGetCategoryRequests:
@@ -24,15 +25,15 @@ class TestGetCategoryRequests:
             'client': client
         }
 
-    def test_POSTリクエストでステータスコード201が得られる(self, props, single_category):
+    def test_POSTリクエストで新規カテゴリが登録される(self, props, single_category):
 
         params = {
-            'category_id': '90811bb8-00bd-46b1-839b-cab9c3b571903',
             'category_name': 'post_category'
         }
 
         response = props['client'].post(props['TARGET_URL'], params, format='json')
 
-        print(response.data)
+        category = Category.objects.filter(category_name='post_category')
 
         assert response.status_code == 201
+        assert category[0].category_name == params['category_name']
