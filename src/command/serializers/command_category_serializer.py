@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from ..models.category import Category
 from ..models.command_category import CommandCategory
 
 class CommandCategorySerializer(serializers.Serializer):
@@ -44,8 +45,15 @@ class CommandCategorySerializer(serializers.Serializer):
             バリデーション済みのデータをもとに作成されたCommandCategoryModel
         """
 
+        category = Category.objects.filter(
+            category_id = validated_data['category_id']
+            )[0]
+
         # validated_dataのディクショナリを名前付き引数に展開
-        new_command_category = CommandCategory(**validated_data)
+        new_command_category = CommandCategory(
+            command_category_name=validated_data['command_category_name'],
+            category_id=category)
+
         new_command_category.save()
 
         return new_command_category
